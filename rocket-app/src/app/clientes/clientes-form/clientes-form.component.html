@@ -1,0 +1,149 @@
+<h1 class="mt-4">Clientes</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ cliente.id ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+
+<div class="container">
+    <form #clientesForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Cliente salvo/atualizado com Sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro }}
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="cliente.id">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>ID:</label>
+                    <input type="text" class="form-control" disabled="true" [ngModel]="cliente.id" name="id" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data Cadastro:</label>
+                    <input type="text" class="form-control" disabled="true" [ngModel]="cliente.dataCadastro"
+                        name="dataCadastro" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nome: *</label>
+                    <input type="text" class="form-control" [(ngModel)]="cliente.nome" name="nome" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Sobrenome: *</label>
+                    <input type="text" class="form-control" [(ngModel)]="cliente.sobrenome" name="sobrenome" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data de Nascimento: *</label>
+                    <input type="text" class="form-control" [(ngModel)]="cliente.dataNascimento"
+                        name="dataNascimento" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>CPF: *</label>
+                    <input type="text" class="form-control" [(ngModel)]="cliente.cpf" name="cpf" required="true" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nome Mãe: *</label>
+                    <input type="text" class="form-control" [(ngModel)]="cliente.nomeMae" name="nomeMae" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Sobrenome Mãe: *</label>
+                    <input type="text" class="form-control" [(ngModel)]="cliente.sobrenomeMae" name="sobrenomeMae" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Usuário: *</label>
+                    <input type="text" class="form-control" [(ngModel)]="cliente.username" name="username" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Senha: *</label>
+                    <input type="password" class="form-control" [(ngModel)]="cliente.password" name="password" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="opcoesCidade">Cidade: *</label>
+                    <br>
+                    <select id="opcoesCidade" [(ngModel)]="opcaoCidadeSelecionada" name="cidade">
+                      <option *ngFor="let opcao of opcoesCidade" [value]="opcao">{{ opcao }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="opcoesEstado">Estado: *</label>
+                    <br>
+                    <select id="opcoesEstado" [(ngModel)]="opcaoEstadoSelecionada" name="estado">
+                      <option *ngFor="let opcao of opcoesEstado" [value]="opcao">{{ opcao }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Documento Identificação Frente/Verso (RG/CNH): *</label>
+                    <br>
+                    <input type="file" (change)="onFileChangeDocumento($event, 'file1')" />
+                    <div></div>
+                      <br>
+                    <input type="file" (change)="onFileChangeDocumento($event, 'file2')" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Comprovante Residencial Frente/Verso: *</label>
+                    <input type="file" (change)="onFileChangeDocumento($event, 'file1')" />
+                    <div></div>
+                    <br>
+                    <input type="file" (change)="onFileChangeDocumento($event, 'file2')" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Foto de Identificação do Rosto: *</label>
+                    <br>
+                    <input type="file" (change)="onFileChangeDocumento($event, 'photo')" />
+                </div>
+            </div>
+         </div>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success" *ngIf="!cliente.id">
+                    <i class="fa fa-save"></i>
+                    Salvar
+                </button>
+
+                <button type="submit" class="btn btn-primary" *ngIf="cliente.id">
+                    <i class="fa fa-refresh"></i>
+                    Atualizar
+                </button>
+
+                <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left"></i>
+                    Voltar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
